@@ -6,9 +6,11 @@ import { signIn } from "next-auth/react"
 import { toast } from "react-hot-toast"
 
 import { Button } from "@/components/ui/button"
+import { useRouter } from "next/navigation"
 
 const ContinueWithGoogle = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const router = useRouter()
 
   const loginWithGoogle = () => {
     setIsLoading(true)
@@ -16,6 +18,7 @@ const ContinueWithGoogle = () => {
     signIn("google")
       .then((res) => {
         if (res) toast.success("Successfully Signed In!")
+        router.push("/dashboard")
       })
       .catch((e) => {
         console.log(e as Error)
