@@ -15,8 +15,8 @@ const SignIn: React.FC<Props> = ({ sessionExists }) => {
   return (
     <div
       className="
-        py-20
         px-5
+        py-20
         mx-auto
         text-center
         flex 
