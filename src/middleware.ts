@@ -8,4 +8,4 @@ export { default } from "next-auth/middleware"
 //   if ( sessionExists &&  req.nextUrl.pathname === "/") return NextResponse.redirect(new URL('/dashboard', req.url))
 // }
 
-export const config = { matcher: ["/dashboard/:path*"] }
+export const config = { matcher: ["/dashboard", "/dashboard/incomes", "/dashboard/expenses"] }
