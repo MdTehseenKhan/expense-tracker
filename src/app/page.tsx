@@ -1,13 +1,48 @@
-import SignIn from "@/components/sign-in"
-import { getAuthSession } from "@/lib/auth"
+"use client"
+import Image from "next/image"
+import { useRouter } from "next/navigation"
+import { useSession } from "next-auth/react"
 
-export default async function Home() {
-  const session = await getAuthSession()
+import ContinueWithGoogle from "@/components/continue-with-google"
+
+export default function Home() {
+  const router = useRouter()
+  const { data: session } = useSession()
+
+  if (session) router.push("/dashboard")
 
   return (
     <div className="min-h-screen grid place-items-center">
       {/* Welcome & SignIn */}
-      <SignIn sessionExists={session?.user} />
+      <div
+        className="
+          px-5
+          py-20
+          mx-auto
+          text-center
+          flex 
+          gap-y-4
+          flex-col 
+          w-full
+          sm:w-[400px]
+          border
+          border-gray-200
+          rounded-lg
+          shadow-md
+        "
+      >
+        <Image src="/logo.png" alt="logo" width={58} height={58} className="self-center" />
+
+        <h1 className="text-3xl font-bold tracking-tight">Welcome to Expense Tracker!</h1>
+
+        <p className="text-sm max-w-xs mx-auto mb-2 text-gray-600">
+          By continuing, you are setting up an &quot;Expense Tracker&quot; account and agree to our User Agreement and
+          Privacy Policy.
+        </p>
+
+        {/* Authentication */}
+        <ContinueWithGoogle />
+      </div>
     </div>
   )
 }

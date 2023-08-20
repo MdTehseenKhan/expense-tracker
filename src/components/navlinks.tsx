@@ -26,10 +26,7 @@ const menuItems = [
 const Navlinks = () => {
   const pathname = usePathname()
 
-  const handleSignOut: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    e.preventDefault()
-    signOut({ callbackUrl: "/" })
-  }
+  const handleSignOut = () => signOut({ callbackUrl: "/" })
 
   return (
     <nav className="flex gap-1 flex-wrap justify-center md:flex-col md:justify-between pt-10">

@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const session = await getAuthSession()
+  const balance = 12300
 
   return (
     <div className="min-h-screen relative p-2">
@@ -30,19 +31,18 @@ export default async function DashboardLayout({ children }: { children: React.Re
         <div
           className="
             flex 
-            flex-wrap
+            flex-col 
             gap-5 
             justify-center 
             items-center
-            md:flex-col 
           "
         >
           <Avatar image={session?.user?.image} />
 
-          <div className="grid items-center md:place-items-center">
+          <div className="grid place-items-center">
             {session?.user?.name || "My Account"}
-            <div className="text-xs text-gray-500 font-normal pr-5">{session?.user?.email || ""}</div>
-            <div className="text-green-600">12300$</div>
+            <div className="text-xs text-gray-500 font-normal">{session?.user?.email || ""}</div>
+            <div className="text-green-500 font-bold">${balance}</div>
           </div>
         </div>
 
@@ -52,15 +52,15 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
       <section
         className="
-          p-10
+          p-7
           rounded-lg
           border 
           border-gray-300
           shadow-md
+          min-h-screen
           mt-10
           md:mt-0
           md:ml-80
-          h-screen
         "
       >
         {children}
