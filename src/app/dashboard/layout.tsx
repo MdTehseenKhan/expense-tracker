@@ -54,7 +54,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
         className="
           p-10
           rounded-lg
-          border
+          border 
           border-gray-300
           shadow-md
           mt-10

@@ -1,7 +1,17 @@
+"use client"
 import Image from "next/image"
 import ContinueWithGoogle from "./continue-with-google"
+import type { User } from "next-auth"
+import { useRouter } from "next/navigation"
 
-const SignIn = () => {
+interface Props {
+  sessionExists?: Pick<User, "name" | "email" | "image">
+}
+
+const SignIn: React.FC<Props> = ({ sessionExists }) => {
+  const router = useRouter()
+  if (sessionExists) router.push("/dashboard")
+
   return (
     <div
       className="
