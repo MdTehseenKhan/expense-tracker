@@ -15,7 +15,7 @@ const ContinueWithGoogle = () => {
   const loginWithGoogle = () => {
     setIsLoading(true)
 
-    signIn("google")
+    signIn("google", { callbackUrl: "/dashboard" })
       .then((res) => {
         if (res) toast.success("Successfully Signed In!")
         router.push("/dashboard")

@@ -6,7 +6,7 @@ interface AvatarProps extends React.HTMLAttributes<HTMLImageElement> {
 }
 
 const Avatar: React.FC<AvatarProps> = ({ image }) => (
-  <div className="relative w-9 h-9">
+  <div className="relative w-14 h-14">
     <Image
       src={image || "/placeholder.jpg"}
       alt="avatar"

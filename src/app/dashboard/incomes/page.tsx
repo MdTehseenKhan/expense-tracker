@@ -1,16 +1,18 @@
-import { notFound } from "next/navigation"
-import { getAuthSession } from "@/lib/auth"
-import db from "@/lib/db"
-
+import axios from "axios"
+const getIncomes = async () => {
+  try {
+    const { data } = await axios.get("http://localhost:3000/api/income/all")
+    return data
+  } catch (e) {
+    return (e as Error).message
+  }
+}
 const Incomes = async () => {
-  const session = await getAuthSession()
-  if (!session?.user) return notFound()
+  const incomes = await getIncomes()
 
-  const incomes = await db.income.findMany({
-    orderBy: { createdAt: "desc" },
-  })
+  console.log({ incomes })
 
-  return <div>Incomes : {JSON.stringify(incomes)}</div>
+  return <div>Incomes</div>
 }
 
 export default Incomes

@@ -47,10 +47,10 @@ model User {
 }
 
 model Income {
-  id          String            @id @default(cuid())
+  id          String     @id @default(cuid())
   title       String
   amount      Int
-  type        IncomeExpenseType @default(OTHER)
+  type        IncomeType @default(OTHER)
   date        DateTime
   category    String
   description String
@@ -63,10 +63,10 @@ model Income {
 }
 
 model Expense {
-  id          String            @id @default(cuid())
+  id          String      @id @default(cuid())
   title       String
   amount      Int
-  type        IncomeExpenseType @default(OTHER)
+  type        ExpenseType @default(OTHER)
   date        DateTime
   category    String
   description String
@@ -78,7 +78,23 @@ model Expense {
   userId String
 }
 
-enum IncomeExpenseType {
+enum IncomeType {
+  INVESTMENT_INCOME
+  CONTENT_CREATION
+  DROPSHIPPING
   FREELANCING
+  TEACHING
+  SALARY
+  OTHER
+}
+
+enum ExpenseType {
+  FOOD_AND_GROCERIES
+  ENTERTAINMENT
+  DEPT_PAYMENT
+  HEALTHCARE
+  EDUCATION
+  TRANSPORT
+  RENT
   OTHER
 }

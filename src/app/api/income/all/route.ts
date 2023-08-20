@@ -8,6 +8,8 @@ export const GET = async () => {
     const session = await getAuthSession()
     if (!session?.user) return new Response('Unauthorized, Please Login First', { status: 401 })
 
+    console.log("Authorized")
+
     const incomes = await db.income.findMany({ orderBy: { createdAt: 'desc' } })
 
     return NextResponse.json(incomes)
