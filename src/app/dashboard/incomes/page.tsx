@@ -7,21 +7,21 @@ const incomes = [
     amount: 1000,
     type: "DROPSHIPPING",
     date: "18-08-2023",
-    description: "My August Dropshipping Earning",
+    description: "Dropshipping Earning",
   },
   {
     title: "Freelancing",
     amount: 10,
     type: "FREELANCING",
     date: "16-07-2023",
-    description: "My July Freelancing Earning",
+    description: "Freelancing Earning this month",
   },
   {
     title: "Salary",
     amount: 100,
     type: "TEACHING",
     date: "08-06-2023",
-    description: "My June Teaching Earning",
+    description: "Teaching Earning",
   },
 ]
 

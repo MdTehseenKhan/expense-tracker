@@ -1,15 +1,12 @@
-"use client"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
-import { useSession } from "next-auth/react"
-
+import { redirect } from "next/navigation"
 import ContinueWithGoogle from "@/components/continue-with-google"
+import { getAuthSession } from "@/lib/auth"
 
-export default function Home() {
-  const router = useRouter()
-  const { data: session } = useSession()
+export default async function Home() {
+  const session = await getAuthSession()
 
-  if (session) router.push("/dashboard")
+  if (session?.user) redirect("/dashboard")
 
   return (
     <div className="min-h-screen grid place-items-center">

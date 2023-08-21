@@ -1,7 +1,9 @@
 import type { Metadata } from "next"
+import { redirect } from "next/navigation"
+
+import Navlinks from "@/components/navlinks"
 import Avatar from "@/components/avatar"
 import { getAuthSession } from "@/lib/auth"
-import Navlinks from "@/components/navlinks"
 
 export const metadata: Metadata = {
   title: "Dashboard | Expense Tracker",
@@ -10,6 +12,9 @@ export const metadata: Metadata = {
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const session = await getAuthSession()
+
+  if (!session?.user) redirect("/")
+
   const balance = 12300
 
   return (

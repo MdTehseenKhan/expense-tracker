@@ -18,17 +18,19 @@ const Card: React.FC<Props> = ({ title, amount, date, description }) => {
         <div className="space-y-2">
           <div className="font-bold">{title}</div>
 
-          <div className="text-sm flex items-center flex-wrap gap-x-5 text-gray-600">
+          <div className="text-sm flex items-center flex-wrap gap-x-5 text-gray-600 overflow-hidden">
             <span>
               <span className="font-bold text-gray-800">$</span>
               &nbsp;
               {amount.toString()}
             </span>
+
             <span className="flex gap-1 items-center">
               <Calendar strokeWidth={2.7} className="w-4 text-gray-800" />
               {date}
             </span>
-            <span className="flex gap-1 items-center">
+
+            <span className="flex gap-1 items-center w-40 truncate whitespace-nowrap">
               <Info strokeWidth={2.7} className="w-4 text-gray-800" />
               {description}
             </span>

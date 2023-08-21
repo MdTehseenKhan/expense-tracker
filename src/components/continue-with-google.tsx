@@ -18,7 +18,7 @@ const ContinueWithGoogle = () => {
     signIn("google", { callbackUrl: "/dashboard" })
       .then((res) => {
         if (res) toast.success("Successfully Signed In!")
-        router.push("/dashboard")
+        // router.push("/dashboard")
       })
       .catch((e) => {
         console.log(e as Error)
