@@ -1,5 +1,5 @@
+import InputForm from "@/components/input-form"
 import Card from "@/components/card"
-import Form from "@/components/form"
 
 const incomes = [
   {
@@ -49,7 +49,7 @@ const Incomes = () => {
 
       <div className="flex gap-7 flex-col lg:flex-row">
         <div className="lg:w-2/5">
-          <Form />
+          <InputForm variant="income" />
         </div>
 
         {/* Recent Incomes */}

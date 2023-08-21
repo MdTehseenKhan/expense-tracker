@@ -6,7 +6,6 @@ export const IncomeValidator = z.object({
   amount: z.number(),
   type: z.nativeEnum(IncomeType),
   date: z.date(),
-  category: z.string(),
   description: z.string().max(50, { message: "Title must be at least 50 characters" }),
 })
 
@@ -15,7 +14,6 @@ export const ExpenseValidator = z.object({
   amount: z.number(),
   type: z.nativeEnum(ExpenseType),
   date: z.date(),
-  category: z.string(),
   description: z.string().max(50, { message: "Title must be at least 50 characters" }),
 })
 

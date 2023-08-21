@@ -1,5 +1,5 @@
 import Card from "@/components/card"
-import Form from "@/components/form"
+import InputForm from "@/components/input-form"
 
 const expenses = [
   {
@@ -49,7 +49,7 @@ const Expenses = () => {
 
       <div className="flex gap-7 flex-col lg:flex-row">
         <div className="lg:w-2/5">
-          <Form />
+          <InputForm variant="expense" />
         </div>
 
         {/* Recent Expenses */}

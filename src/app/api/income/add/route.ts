@@ -9,13 +9,12 @@ export const POST = async (req: Request) => {
     if (!session?.user) return new Response('Unauthorized, Please Login First', {status: 401})
 
     const body = await req.json()
-    const { title, amount, category, date, type, description } = await IncomeValidator.parse(body)
+    const { title, amount, date, type, description } = await IncomeValidator.parse(body)
 
     await db.income.create({
       data: {
         title,
         amount,
-        category,
         date,
         type,
         description,

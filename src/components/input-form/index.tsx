@@ -9,7 +9,11 @@ import DatePicker from "./date-picker"
 import Combobox from "./combobox"
 import { IncomePayload, IncomeValidator } from "@/lib/validators"
 
-const Form = () => {
+interface Props {
+  variant: "income" | "expense"
+}
+
+const InputForm: React.FC<Props> = () => {
   const {
     register,
     handleSubmit,
@@ -38,4 +42,4 @@ const Form = () => {
   )
 }
 
-export default Form
+export default InputForm
