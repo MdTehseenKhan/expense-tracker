@@ -1,31 +1,34 @@
-import InputForm from "@/components/input-form"
+import { getAuthSession } from "@/lib/auth"
+
 import Card from "@/components/card"
+import InputForm from "@/components/input-form"
 
 const incomes = [
   {
     title: "Sold a product",
     amount: 1000,
     type: "DROPSHIPPING",
-    date: "18-08-2023",
+    date: new Date("2023-08-18T00:00:00Z"),
     description: "Dropshipping Earning",
   },
   {
     title: "Freelancing",
     amount: 10,
     type: "FREELANCING",
-    date: "16-07-2023",
+    date: new Date("2023-07-16T00:00:00Z"),
     description: "Freelancing Earning this month",
   },
   {
     title: "Salary",
     amount: 100,
     type: "TEACHING",
-    date: "08-06-2023",
+    date: new Date("2023-06-22T00:00:00Z"),
     description: "Teaching Earning",
   },
 ]
 
-const Incomes = () => {
+const Incomes = async () => {
+  const session = await getAuthSession()
   const income = 12500
 
   return (
@@ -33,30 +36,32 @@ const Incomes = () => {
       <div
         className="
           p-5 
+          flex
+          flex-wrap
+          justify-center
+          text-center
           text-4xl 
           font-bold 
-          grid 
-          place-items-center 
           border 
           border-gray-200 
           rounded 
           shadow
         "
       >
-        Total Income:
+        Total Income:&nbsp;
         <span className="text-green-500">${income}</span>
       </div>
 
       <div className="flex gap-7 flex-col lg:flex-row">
         <div className="lg:w-2/5">
-          <InputForm variant="income" />
+          <InputForm variant="income" userId={session?.id} />
         </div>
 
         {/* Recent Incomes */}
         <div className="lg:w-3/5">
           <div className="flex flex-col gap-2">
-            {incomes?.map(({ title, amount, date, description }, i) => (
-              <Card key={i + title} title={title} amount={amount} date={date} description={description} />
+            {incomes?.map(({ title, amount, type, date, description }, i) => (
+              <Card key={i + title} title={title} amount={amount} type={type} date={date} description={description} />
             ))}
           </div>
         </div>

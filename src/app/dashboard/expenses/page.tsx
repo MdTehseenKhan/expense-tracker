@@ -1,3 +1,5 @@
+import { getAuthSession } from "@/lib/auth"
+
 import Card from "@/components/card"
 import InputForm from "@/components/input-form"
 
@@ -6,26 +8,27 @@ const expenses = [
     title: "Dentist",
     amount: 50,
     type: "HEALTHCARE",
-    date: "18-08-2023",
+    date: new Date("2023-08-18T00:00:00Z"),
     description: "Dentist checkup fee",
   },
   {
     title: "Train Cost",
     amount: 70,
-    type: "TRANSPORTATION",
-    date: "16-07-2023",
+    type: "TRANSPORT",
+    date: new Date("2023-08-18T00:00:00Z"),
     description: "Transport expenses",
   },
   {
     title: "House Rent",
     amount: 300,
     type: "RENT",
-    date: "08-06-2023",
+    date: new Date("2023-08-18T00:00:00Z"),
     description: "1 month rent",
   },
 ]
 
-const Expenses = () => {
+const Expenses = async () => {
+  const session = await getAuthSession()
   const totalExpenses = 500
 
   return (
@@ -33,10 +36,12 @@ const Expenses = () => {
       <div
         className="
           p-5 
+          flex
+          flex-wrap
+          justify-center
+          text-center
           text-4xl 
           font-bold 
-          grid 
-          place-items-center 
           border 
           border-gray-200 
           rounded 
@@ -49,14 +54,14 @@ const Expenses = () => {
 
       <div className="flex gap-7 flex-col lg:flex-row">
         <div className="lg:w-2/5">
-          <InputForm variant="expense" />
+          <InputForm variant="expense" userId={session?.id} />
         </div>
 
         {/* Recent Expenses */}
         <div className="lg:w-3/5">
           <div className="flex flex-col gap-2">
-            {expenses?.map(({ title, amount, date, description }, i) => (
-              <Card key={title + i} title={title} amount={amount} date={date} description={description} />
+            {expenses?.map(({ title, amount, date, type, description }, i) => (
+              <Card key={title + i} title={title} amount={amount} date={date} type={type} description={description} />
             ))}
           </div>
         </div>
