@@ -1,7 +1,24 @@
+import Card from "@/components/card"
 import Chart from "@/components/chart"
 import { cn } from "@/lib/utils"
+import { ExpenseType, IncomeType } from "@prisma/client"
 
-const incomes = [
+interface Income {
+  title: string
+  amount: number
+  type: IncomeType
+  date: Date
+  description: string
+}
+interface Expense {
+  title: string
+  amount: number
+  type: ExpenseType
+  date: Date
+  description: string
+}
+
+const incomes: Income[] = [
   {
     title: "Sold a product",
     amount: 1000,
@@ -24,7 +41,7 @@ const incomes = [
     description: "Teaching Earning",
   },
 ]
-const expenses = [
+const expenses: Expense[] = [
   {
     title: "Dentist",
     amount: 50,
@@ -49,6 +66,10 @@ const expenses = [
 ]
 
 const Dashboard = async () => {
+  // @ts-ignore
+  let history = incomes.concat(expenses)
+  history = history.sort((a, b) => a.date.getTime() - b.date.getTime())
+
   const data = [
     {
       title: "balance",
@@ -120,7 +141,24 @@ const Dashboard = async () => {
 
       {/* Transactions Section */}
       <section>
-        <div className="flex"></div>
+        <div className="flex flex-col gap-3 pt-10">
+          <h1 className="text-3xl font-bold pb-3">Recent Transactions</h1>
+
+          {history?.map(({ title, amount, type, date, description }) => {
+            console.log(typeof type)
+            return (
+              <Card
+                key={title}
+                variant={IncomeType[type] ? "income" : "expense"}
+                title={title}
+                type={type}
+                amount={amount}
+                date={date}
+                description={description}
+              />
+            )
+          })}
+        </div>
       </section>
     </div>
   )
