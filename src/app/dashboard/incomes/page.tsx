@@ -61,7 +61,15 @@ const Incomes = async () => {
         <div className="lg:w-3/5">
           <div className="flex flex-col gap-2">
             {incomes?.map(({ title, amount, type, date, description }, i) => (
-              <Card key={i + title} title={title} amount={amount} type={type} date={date} description={description} />
+              <Card
+                key={i + title}
+                variant="income"
+                title={title}
+                amount={amount}
+                type={type}
+                date={date}
+                description={description}
+              />
             ))}
           </div>
         </div>

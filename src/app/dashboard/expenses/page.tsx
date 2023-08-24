@@ -61,7 +61,15 @@ const Expenses = async () => {
         <div className="lg:w-3/5">
           <div className="flex flex-col gap-2">
             {expenses?.map(({ title, amount, date, type, description }, i) => (
-              <Card key={title + i} title={title} amount={amount} date={date} type={type} description={description} />
+              <Card
+                key={title + i}
+                variant="expense"
+                title={title}
+                amount={amount}
+                date={date}
+                type={type}
+                description={description}
+              />
             ))}
           </div>
         </div>
