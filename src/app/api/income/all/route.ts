@@ -9,7 +9,10 @@ export const GET = async () => {
 
     console.log("Authorized")
 
-    const incomes = await db.income.findMany({ orderBy: { createdAt: 'desc' } })
+    const incomes = await db.income.findMany({ 
+      where: { userId: session.id }, 
+      orderBy: { createdAt: 'desc' } 
+    })
 
     return NextResponse.json(incomes)
   } catch(e) {

@@ -8,7 +8,10 @@ export const GET = async () => {
     const session = await getAuthSession()
     if (!session?.user) return new Response('Unauthorized, Please Login First', { status: 401 })
 
-    const expenses = await db.expense.findMany({ orderBy: { createdAt: 'desc' } })
+    const expenses = await db.expense.findMany({ 
+      where: { userId: session.id }, 
+      orderBy: { createdAt: 'desc' } 
+    })
 
     return NextResponse.json(expenses)
   } catch(e) {
