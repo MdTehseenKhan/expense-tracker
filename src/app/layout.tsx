@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               max-w-7xl
               mx-auto 
               min-h-screen
-              px-5
+              px-4
             "
           >
             {children}
