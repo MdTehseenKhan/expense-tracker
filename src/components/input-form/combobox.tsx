@@ -10,8 +10,8 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 
 interface Props {
-  value?: string
-  setValue: React.Dispatch<React.SetStateAction<string | undefined>>
+  value: string | null
+  setValue: React.Dispatch<React.SetStateAction<string | null>>
   variant: "income" | "expense"
 }
 
@@ -41,7 +41,6 @@ export default function Combobox({ value, setValue, variant }: Props) {
                 key={item}
                 onSelect={(currentValue) => {
                   setValue(currentValue.toUpperCase())
-                  console.log(currentValue)
                   setOpen(false)
                 }}
               >

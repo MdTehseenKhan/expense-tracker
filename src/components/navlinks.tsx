@@ -29,49 +29,62 @@ const Navlinks = () => {
   const handleSignOut = () => signOut({ callbackUrl: "/" })
 
   return (
-    <nav className="flex gap-1 flex-wrap justify-center md:flex-col md:justify-between pt-10">
-      {menuItems.map(({ title, link, Icon }) => {
-        return (
-          <Link
-            href={link}
-            key={title}
-            className={cn(
-              `
-              text-gray-500 
-              flex 
-              gap-3 
-              px-4 
-              py-2 
-              hover:text-gray-700 
-              rounded 
-              hover:bg-gray-200
+    <div className="flex flex-col justify-between flex-grow">
+      <nav
+        className="
+          flex 
+          gap-1 
+          flex-wrap 
+          justify-center 
+          md:flex-col 
+          md:justify-between 
+          pt-10
+        "
+      >
+        {menuItems.map(({ title, link, Icon }) => {
+          return (
+            <Link
+              href={link}
+              key={title}
+              className={cn(
+                `
+                text-gray-500 
+                hover:text-gray-700 
+                flex 
+                gap-3 
+                px-4 
+                py-2 
+                rounded
+                w-full 
+                hover:bg-gray-200
             `,
-              pathname === link && "text-gray-900 hover:text-gray-950"
-            )}
-          >
-            <Icon />
-            <span>{title}</span>
-          </Link>
-        )
-      })}
+                pathname === link && "bg-gray-900 hover:bg-gray-950 text-gray-200 hover:text-gray-100"
+              )}
+            >
+              <Icon />
+              <span>{title}</span>
+            </Link>
+          )
+        })}
+      </nav>
 
       <button
         onClick={handleSignOut}
         className="
-          text-gray-500 
-          flex 
-          gap-3 
-          px-4 
-          py-2 
-          hover:text-gray-700 
-          rounded 
-          hover:bg-gray-200
-        "
+            text-gray-500 
+            flex 
+            gap-3 
+            px-4 
+            py-2 
+            hover:text-gray-700 
+            rounded 
+            hover:bg-gray-200
+          "
       >
         <LogOut />
         <span>Log Out</span>
       </button>
-    </nav>
+    </div>
   )
 }
 

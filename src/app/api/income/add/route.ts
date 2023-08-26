@@ -10,6 +10,7 @@ export const POST = async (req: Request) => {
 
     const body = await req.json()
     const { title, amount, date, type, description } = await IncomeValidator.parse(body)
+    console.log(typeof date)
 
     await db.income.create({
       data: {

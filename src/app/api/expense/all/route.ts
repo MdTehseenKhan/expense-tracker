@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server"
-import { z } from "zod"
 
 import { getAuthSession } from "@/lib/auth"
 import db from "@/lib/db"
@@ -13,7 +12,6 @@ export const GET = async () => {
 
     return NextResponse.json(expenses)
   } catch(e) {
-    if (e instanceof z.ZodError) return new Response(e.message, { status: 422 })
     return new Response("Internal Server Error", { status: 500 })
   }
 }

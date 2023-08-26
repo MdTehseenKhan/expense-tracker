@@ -1,35 +1,15 @@
-import { getAuthSession } from "@/lib/auth"
-
+"use client"
 import Card from "@/components/card"
 import InputForm from "@/components/input-form"
+import { useIncomeExpense } from "@/contexts/income-expense-context"
+import { useEffect } from "react"
 
-const incomes = [
-  {
-    title: "Sold a product",
-    amount: 1000,
-    type: "DROPSHIPPING",
-    date: new Date("2023-08-18T00:00:00Z"),
-    description: "Dropshipping Earning",
-  },
-  {
-    title: "Freelancing",
-    amount: 10,
-    type: "FREELANCING",
-    date: new Date("2023-07-16T00:00:00Z"),
-    description: "Freelancing Earning this month",
-  },
-  {
-    title: "Salary",
-    amount: 100,
-    type: "TEACHING",
-    date: new Date("2023-06-22T00:00:00Z"),
-    description: "Teaching Earning",
-  },
-]
+const Incomes = () => {
+  const { totalIncome, incomes, getIncome } = useIncomeExpense()
 
-const Incomes = async () => {
-  const session = await getAuthSession()
-  const income = 12500
+  useEffect(() => {
+    getIncome()
+  }, [])
 
   return (
     <div className="space-y-7">
@@ -49,25 +29,26 @@ const Incomes = async () => {
         "
       >
         Total Income:&nbsp;
-        <span className="text-green-500">${income}</span>
+        <span className="text-green-500">${totalIncome()}</span>
       </div>
 
       <div className="flex gap-7 flex-col lg:flex-row">
         <div className="lg:w-2/5">
-          <InputForm variant="income" userId={session?.id} />
+          <InputForm variant="income" />
         </div>
 
         {/* Recent Incomes */}
         <div className="lg:w-3/5">
           <div className="flex flex-col gap-2">
-            {incomes?.map(({ title, amount, type, date, description }, i) => (
+            {incomes?.map(({ id, title, amount, type, date, description }) => (
               <Card
-                key={i + title}
+                key={id}
+                id={id}
                 variant="income"
                 title={title}
                 amount={amount}
-                type={type}
-                date={date}
+                type={type as string}
+                date={date as Date}
                 description={description}
               />
             ))}

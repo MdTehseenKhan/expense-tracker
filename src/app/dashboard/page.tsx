@@ -1,89 +1,38 @@
+"use client"
 import Card from "@/components/card"
 import Chart from "@/components/chart"
+import { useIncomeExpense } from "@/contexts/income-expense-context"
 import { cn } from "@/lib/utils"
-import { ExpenseType, IncomeType } from "@prisma/client"
+import { IncomeType } from "@prisma/client"
+import { useEffect } from "react"
 
-interface Income {
-  title: string
-  amount: number
-  type: IncomeType
-  date: Date
-  description: string
-}
-interface Expense {
-  title: string
-  amount: number
-  type: ExpenseType
-  date: Date
-  description: string
-}
-
-const incomes: Income[] = [
-  {
-    title: "Sold a product",
-    amount: 1000,
-    type: "DROPSHIPPING",
-    date: new Date("2023-08-18T00:00:00Z"),
-    description: "Dropshipping Earning",
-  },
-  {
-    title: "Freelancing",
-    amount: 10,
-    type: "FREELANCING",
-    date: new Date("2023-07-16T00:00:00Z"),
-    description: "Freelancing Earning this month",
-  },
-  {
-    title: "Salary",
-    amount: 100,
-    type: "TEACHING",
-    date: new Date("2023-06-22T00:00:00Z"),
-    description: "Teaching Earning",
-  },
-]
-const expenses: Expense[] = [
-  {
-    title: "Dentist",
-    amount: 50,
-    type: "HEALTHCARE",
-    date: new Date("2023-08-18T00:00:00Z"),
-    description: "Dentist checkup fee",
-  },
-  {
-    title: "Train Cost",
-    amount: 70,
-    type: "TRANSPORT",
-    date: new Date("2023-08-18T00:00:00Z"),
-    description: "Transport expenses",
-  },
-  {
-    title: "House Rent",
-    amount: 300,
-    type: "RENT",
-    date: new Date("2023-08-18T00:00:00Z"),
-    description: "1 month rent",
-  },
-]
-
-const Dashboard = async () => {
-  // @ts-ignore
-  let history = incomes.concat(expenses)
-  history = history.sort((a, b) => a.date.getTime() - b.date.getTime())
+const Dashboard = () => {
+  const { incomes, expenses, getIncome, getExpenses, totalIncome, totalExpenses, history, transactionHistory } =
+    useIncomeExpense()
 
   const data = [
     {
       title: "balance",
-      amount: 12580,
+      amount: totalIncome() - totalExpenses(),
     },
     {
       title: "income",
-      amount: 16500,
+      amount: totalIncome(),
     },
     {
       title: "expense",
-      amount: 3920,
+      amount: totalExpenses(),
     },
   ]
+
+  useEffect(() => {
+    getIncome()
+    getExpenses()
+  }, [])
+
+  useEffect(() => {
+    transactionHistory()
+  }, [incomes, expenses])
 
   return (
     <div>
@@ -95,13 +44,13 @@ const Dashboard = async () => {
 
           <div
             className="
-            p-4 
-            py-10
-            border 
-            border-gray-300 
-            rounded 
-            shadow-md
-          "
+              p-4 
+              py-10
+              border 
+              border-gray-300 
+              rounded 
+              shadow-md
+            "
           >
             <Chart incomes={incomes} expenses={expenses} />
           </div>
@@ -144,19 +93,21 @@ const Dashboard = async () => {
         <div className="flex flex-col gap-3 pt-10">
           <h1 className="text-3xl font-bold pb-3">Recent Transactions</h1>
 
-          {history?.map(({ title, amount, type, date, description }) => {
-            console.log(typeof type)
-            return (
-              <Card
-                key={title}
-                variant={IncomeType[type] ? "income" : "expense"}
-                title={title}
-                type={type}
-                amount={amount}
-                date={date}
-                description={description}
-              />
-            )
+          {history?.map(({ id, title, amount, type, date, description }) => {
+            if (type !== null)
+              return (
+                <Card
+                  key={id}
+                  id={id}
+                  // @ts-ignore
+                  variant={IncomeType[type] ? "income" : "expense"}
+                  title={title}
+                  type={type as string}
+                  amount={amount}
+                  date={date as Date}
+                  description={description}
+                />
+              )
           })}
         </div>
       </section>

@@ -10,6 +10,9 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "Expense Tracker",
   description: "...",
+  icons: {
+    icon: "/logo.png",
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

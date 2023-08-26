@@ -5,7 +5,6 @@ import { getAuthSession } from "@/lib/auth"
 
 export default async function Home() {
   const session = await getAuthSession()
-
   if (session?.user) redirect("/dashboard")
 
   return (
@@ -28,7 +27,7 @@ export default async function Home() {
           shadow-md
         "
       >
-        <Image src="/logo.png" alt="logo" width={58} height={58} className="self-center" />
+        <Image src="/logo.png" alt="logo" width={64} height={64} className="self-center" />
 
         <h1 className="text-3xl font-bold tracking-tight">Welcome to Expense Tracker!</h1>
 

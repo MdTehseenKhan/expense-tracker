@@ -34,7 +34,7 @@ const Chart: React.FC<ChartProps> = ({ incomes, expenses }) => {
   const maxExpense = Math.max(...expenseAmounts)
 
   const data = {
-    labels: incomes.map(({ date }) => date && format(date, "dd MMM, yyyy")),
+    labels: incomes.map(({ date }) => format(new Date(date as Date), "dd-MMM-yyyy")),
     datasets: [
       {
         label: "Income",

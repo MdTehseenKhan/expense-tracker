@@ -1,5 +1,4 @@
 import type { IconType } from "react-icons"
-import { format } from "date-fns"
 
 // Icons
 import { Calendar, Info, Trash2 } from "lucide-react"
@@ -16,8 +15,11 @@ import {
 } from "react-icons/fa"
 import { IoFastFoodSharp, IoMedkitSharp, IoSchoolSharp, IoTrendingUpSharp } from "react-icons/io5"
 import { cn } from "@/lib/utils"
+import { useIncomeExpense } from "@/contexts/income-expense-context"
+import { format } from "date-fns"
 
 interface Props {
+  id: string
   title: string
   amount: number
   type: string
@@ -42,9 +44,15 @@ let icons = {
   OTHER: FaEllipsisH,
 }
 
-const Card: React.FC<Props> = ({ title, amount, type, date, description, variant }) => {
+const Card: React.FC<Props> = ({ id, title, amount, type, date, description, variant }) => {
+  const { deleteIncome, deleteExpense } = useIncomeExpense()
   // @ts-ignore
   const Icon: IconType = icons[type]
+
+  const handleDelete = () => {
+    if (variant === "income") deleteIncome(id)
+    else if (variant === "expense") deleteExpense(id)
+  }
 
   return (
     <div
@@ -103,7 +111,7 @@ const Card: React.FC<Props> = ({ title, amount, type, date, description, variant
 
             <p className="flex gap-1 items-center">
               <Calendar strokeWidth={2.7} className="w-4 shrink-0 text-gray-800" />
-              {format(date, "dd-MMM-yyyy")}
+              {format(new Date(date), "dd-MMM-yyyy")}
             </p>
 
             <p
@@ -124,7 +132,18 @@ const Card: React.FC<Props> = ({ title, amount, type, date, description, variant
         </div>
       </div>
 
-      <button className="p-4 w-full sm:w-fit grid place-items-center bg-red-600 hover:bg-red-700">
+      <button
+        className="
+          p-4 
+          w-full 
+          sm:w-fit 
+          grid 
+          place-items-center 
+          bg-red-600 
+          hover:bg-red-700
+        "
+        onClick={handleDelete}
+      >
         <Trash2 className="text-white" />
       </button>
     </div>
