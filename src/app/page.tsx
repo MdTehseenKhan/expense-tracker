@@ -22,9 +22,9 @@ export default async function Home() {
           w-full
           sm:w-[400px]
           border
-          border-gray-200
+          border-gray-300
           rounded-lg
-          shadow-md
+          shadow-lg
         "
       >
         <Image src="/logo.png" alt="logo" width={64} height={64} className="self-center" />

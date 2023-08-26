@@ -1,35 +1,24 @@
 import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 
+import { getAuthSession } from "@/lib/auth"
+
+import BalanceBadge from "@/components/balance-badge"
 import Navlinks from "@/components/navlinks"
 import Avatar from "@/components/avatar"
-import { getAuthSession } from "@/lib/auth"
-import db from "@/lib/db"
 
 export const metadata: Metadata = {
   title: "Dashboard | Expense Tracker",
   description: "...",
 }
 
-async function getBalance() {
-  try {
-    const income = await db.income.aggregate({ _sum: { amount: true } })
-    const expense = await db.expense.aggregate({ _sum: { amount: true } })
-
-    return income._sum.amount! - expense._sum.amount!
-  } catch (err) {
-    console.log((err as Error).message)
-  }
-}
-
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const session = await getAuthSession()
   if (!session?.user) redirect("/")
 
-  const balance = await getBalance()
-
   return (
     <div className="min-h-screen relative p-2">
+      {/* Sidebar */}
       <aside
         className="
           px-5
@@ -61,7 +50,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
           <div className="grid place-items-center">
             {session?.user?.name || "My Account"}
             <div className="text-xs text-gray-500 font-normal">{session?.user?.email || ""}</div>
-            <div className="text-green-500 font-bold">$ {balance || 0}</div>
+            <BalanceBadge />
           </div>
         </div>
 
@@ -69,6 +58,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
         <Navlinks />
       </aside>
 
+      {/* Dashboard */}
       <section
         className="
           py-7
