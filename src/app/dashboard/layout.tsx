@@ -1,4 +1,3 @@
-import axios from "axios"
 import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 

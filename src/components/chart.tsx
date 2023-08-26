@@ -58,22 +58,22 @@ const Chart: React.FC<ChartProps> = ({ incomes, expenses }) => {
       <div className="w-full flex justify-between text-gray-600 pt-10">
         <div>
           Min Income:
-          <span className="font-bold text-red-500"> ${minIncome}</span>
+          <span className="font-bold text-red-500"> ${minIncome === Infinity ? 0 : minIncome}</span>
         </div>
         <div>
           Max Income:
-          <span className="font-bold text-green-500"> ${maxIncome}</span>
+          <span className="font-bold text-green-500"> ${maxIncome === -Infinity ? 0 : maxIncome}</span>
         </div>
       </div>
 
       <div className="w-full flex justify-between text-gray-600">
         <div>
           Min Expense:
-          <span className="font-bold text-red-500"> ${minExpense}</span>
+          <span className="font-bold text-red-500"> ${minExpense === Infinity ? 0 : minExpense}</span>
         </div>
         <div>
           Max Expense:
-          <span className="font-bold text-green-500"> ${maxExpense}</span>
+          <span className="font-bold text-green-500"> ${maxExpense === -Infinity ? 0 : maxExpense}</span>
         </div>
       </div>
     </>
