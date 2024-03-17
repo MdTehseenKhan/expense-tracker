@@ -1,7 +1,7 @@
-import type { IconType } from "react-icons"
+import type { IconType } from 'react-icons'
 
 // Icons
-import { Calendar, Info, Trash2 } from "lucide-react"
+import { Calendar, Info, Trash2 } from 'lucide-react'
 import {
   FaUserTie,
   FaShippingFast,
@@ -12,11 +12,16 @@ import {
   FaBus,
   FaShoppingBasket,
   FaHome,
-} from "react-icons/fa"
-import { IoFastFoodSharp, IoMedkitSharp, IoSchoolSharp, IoTrendingUpSharp } from "react-icons/io5"
-import { cn } from "@/lib/utils"
-import { useIncomeExpense } from "@/contexts/income-expense-context"
-import { format } from "date-fns"
+} from 'react-icons/fa'
+import {
+  IoFastFoodSharp,
+  IoMedkitSharp,
+  IoSchoolSharp,
+  IoTrendingUpSharp,
+} from 'react-icons/io5'
+import { cn } from '@/lib/utils'
+import { useIncomeExpense } from '@/contexts/income-expense-context'
+import { format } from 'date-fns'
 
 interface Props {
   id: string
@@ -25,7 +30,7 @@ interface Props {
   type: string
   date: Date
   description: string
-  variant: "income" | "expense"
+  variant: 'income' | 'expense'
 }
 
 let icons = {
@@ -44,14 +49,22 @@ let icons = {
   OTHER: FaEllipsisH,
 }
 
-const Card: React.FC<Props> = ({ id, title, amount, type, date, description, variant }) => {
+const Card: React.FC<Props> = ({
+  id,
+  title,
+  amount,
+  type,
+  date,
+  description,
+  variant,
+}) => {
   const { deleteIncome, deleteExpense } = useIncomeExpense()
   // @ts-ignore
   const Icon: IconType = icons[type]
 
   const handleDelete = () => {
-    if (variant === "income") deleteIncome(id)
-    else if (variant === "expense") deleteExpense(id)
+    if (variant === 'income') deleteIncome(id)
+    else if (variant === 'expense') deleteExpense(id)
   }
 
   return (
@@ -62,7 +75,7 @@ const Card: React.FC<Props> = ({ id, title, amount, type, date, description, var
         sm:flex-row 
         border 
         border-gray-200 
-        rounded 
+        rounded-md 
         shadow 
         overflow-hidden
       "
@@ -96,22 +109,25 @@ const Card: React.FC<Props> = ({ id, title, amount, type, date, description, var
           >
             <p
               className={cn(
-                "font-bold text-gray-800",
-                variant === "income" && "text-green-500",
-                variant === "expense" && "text-red-500"
+                'font-bold text-gray-800',
+                variant === 'income' && 'text-green-500',
+                variant === 'expense' && 'text-red-500'
               )}
             >
               <span>
-                {variant === "income" && "+"}
-                {variant === "expense" && "-"}$
+                {variant === 'income' && '+'}
+                {variant === 'expense' && '-'}$
               </span>
               &nbsp;
               {amount.toString()}
             </p>
 
             <p className="flex gap-1 items-center">
-              <Calendar strokeWidth={2.7} className="w-4 shrink-0 text-gray-800" />
-              {format(new Date(date), "dd-MMM-yyyy")}
+              <Calendar
+                strokeWidth={2.7}
+                className="w-4 shrink-0 text-gray-800"
+              />
+              {format(new Date(date), 'dd-MMM-yyyy')}
             </p>
 
             <p
@@ -138,13 +154,14 @@ const Card: React.FC<Props> = ({ id, title, amount, type, date, description, var
           w-full 
           sm:w-fit 
           grid 
-          place-items-center 
-          bg-red-600 
-          hover:bg-red-700
+          place-items-center  
+          hover:bg-muted
+          text-red-600 
+          hover:text-red-700
         "
         onClick={handleDelete}
       >
-        <Trash2 className="text-white" />
+        <Trash2 className="" />
       </button>
     </div>
   )

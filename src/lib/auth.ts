@@ -19,12 +19,12 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async session({ session, token }) {
-      if (token) {    
-        session.id = token.id
-        session.user!.name = token.name
-        session.user!.email = token.email
-        session.user!.image = token.picture
-      }
+      session.id = token.id
+      if (session.user) {
+          session.user.name = token.name
+          session.user.email = token.email
+          session.user.image = token.picture
+        }
       return session
     },
     async jwt({ token, user }) {
@@ -32,7 +32,7 @@ export const authOptions: NextAuthOptions = {
         where: { email: token.email }
       })
       if (!dbUser) {
-        token.id = user!.id
+        token.id = user.id
         return token
       }
       return {

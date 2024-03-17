@@ -1,29 +1,26 @@
-"use client"
-import { useState } from "react"
+'use client'
+import { useState } from 'react'
 
-import { FcGoogle } from "react-icons/fc"
-import { signIn } from "next-auth/react"
-import { toast } from "react-hot-toast"
+import { FcGoogle } from 'react-icons/fc'
+import { signIn } from 'next-auth/react'
+import { toast } from 'react-hot-toast'
 
-import { Button } from "@/components/ui/button"
-import { useRouter } from "next/navigation"
+import { Button } from '@/components/ui/button'
 
 const ContinueWithGoogle = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const router = useRouter()
 
   const loginWithGoogle = () => {
     setIsLoading(true)
 
-    signIn("google", { callbackUrl: "/dashboard" })
+    signIn('google', { callbackUrl: '/dashboard' })
       .then((res) => {
-        if (res) toast.success("Successfully Signed In!")
-        // router.push("/dashboard")
+        if (res) toast.success('Successfully Signed In!')
       })
       .catch((e) => {
         console.log(e as Error)
 
-        toast.error("Something went wrong!")
+        toast.error('Something went wrong!')
       })
       .finally(() => setIsLoading(false))
   }

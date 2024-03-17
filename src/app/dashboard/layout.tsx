@@ -1,35 +1,33 @@
-import type { Metadata } from "next"
-import { redirect } from "next/navigation"
+import type { Metadata } from 'next'
+import { redirect } from 'next/navigation'
 
-import { getAuthSession } from "@/lib/auth"
+import { getAuthSession } from '@/lib/auth'
 
-import BalanceBadge from "@/components/balance-badge"
-import Navlinks from "@/components/navlinks"
-import Avatar from "@/components/avatar"
+import BalanceBadge from '@/components/balance-badge'
+import Navlinks from '@/components/navlinks'
+import Avatar from '@/components/avatar'
 
 export const metadata: Metadata = {
-  title: "Dashboard | Expense Tracker",
-  description: "...",
+  title: 'Dashboard | Expense Tracker',
+  description: '...',
 }
 
-export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default async function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   const session = await getAuthSession()
-  if (!session?.user) redirect("/")
+  if (!session?.user) redirect('/')
 
   return (
-    <div className="min-h-screen relative p-2">
+    <div className="w-full min-h-screen relative p-2">
       {/* Sidebar */}
       <aside
         className="
-          px-5
-          pb-5
-          pt-10
+          p-10
           w-full
-          h-[97%]
-          rounded-lg
-          border
-          border-gray-300
-          shadow-md
+          h-full
           md:fixed
           md:max-w-[300px]
           flex
@@ -48,8 +46,10 @@ export default async function DashboardLayout({ children }: { children: React.Re
           <Avatar image={session?.user?.image} />
 
           <div className="grid place-items-center">
-            {session?.user?.name || "My Account"}
-            <div className="text-xs text-gray-500 font-normal">{session?.user?.email || ""}</div>
+            {session?.user?.name || 'My Account'}
+            <div className="text-xs text-gray-500 font-normal">
+              {session?.user?.email || ''}
+            </div>
             <BalanceBadge />
           </div>
         </div>
@@ -59,8 +59,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
       </aside>
 
       {/* Dashboard */}
-      <section
-        className="
+      <div className="sm:container mx-auto">
+        <section
+          className="
           py-7
           px-3
           md:px-7
@@ -73,9 +74,10 @@ export default async function DashboardLayout({ children }: { children: React.Re
           md:mt-0
           md:ml-80
         "
-      >
-        {children}
-      </section>
+        >
+          {children}
+        </section>
+      </div>
     </div>
   )
 }
